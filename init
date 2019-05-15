@@ -13,27 +13,27 @@
  # rabbitmqadmin declare exchange name=ex_pos type=topic --vhost=/zkf
 
  rabbitmqctl set_parameter shovel from_pos_status_dot_star \
-    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@172.16.168.183:35672/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "status.*.*", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@172.16.168.183:8082/%2Fzkf", "dest-exchange": "ex_pos"}'
+    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@$upstream_ip:$upstream_port/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "status.*.*", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@$downstream_ip:$downstream_port/%2Fzkf", "dest-exchange": "ex_pos"}'
 
  rabbitmqctl set_parameter shovel from_pos_addtip \
-    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@172.16.168.183:35672/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "order.*.dispatcher.addTip", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@172.16.168.183:8082/%2Fzkf", "dest-exchange": "ex_pos"}'
+    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@$upstream_ip:$upstream_port/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "order.*.dispatcher.addTip", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@$downstream_ip:$downstream_port/%2Fzkf", "dest-exchange": "ex_pos"}'
 
  rabbitmqctl set_parameter shovel from_pos_create \
-    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@172.16.168.183:35672/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "order.*.dispatcher.create", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@172.16.168.183:8082/%2Fzkf", "dest-exchange": "ex_pos"}'
+    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@$upstream_ip:$upstream_port/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "order.*.dispatcher.create", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@$downstream_ip:$downstream_port/%2Fzkf", "dest-exchange": "ex_pos"}'
 
  rabbitmqctl set_parameter shovel from_pos_recreate \
-    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@172.16.168.183:35672/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "order.*.dispatcher.reCreate", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@172.16.168.183:8082/%2Fzkf", "dest-exchange": "ex_pos"}'
+    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@$upstream_ip:$upstream_port/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "order.*.dispatcher.reCreate", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@$downstream_ip:$downstream_port/%2Fzkf", "dest-exchange": "ex_pos"}'
 
  rabbitmqctl set_parameter shovel from_pos_cancel \
-    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@172.16.168.183:35672/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "order.*.dispatcher.cancel", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@172.16.168.183:8082/%2Fzkf", "dest-exchange": "ex_pos"}'
+    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@$upstream_ip:$upstream_port/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "order.*.dispatcher.cancel", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@$downstream_ip:$downstream_port/%2Fzkf", "dest-exchange": "ex_pos"}'
 
  rabbitmqctl set_parameter shovel to_pos_reply_status \
-    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@172.16.168.183:8082/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "reply.status.#", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@172.16.168.183:35672/%2Fzkf", "dest-exchange": "ex_pos"}'
+    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@$downstream_ip:$downstream_port/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "reply.status.#", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@$upstream_ip:$upstream_port/%2Fzkf", "dest-exchange": "ex_pos"}'
 
  rabbitmqctl set_parameter shovel to_pos_dispatcher_status \
-    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@172.16.168.183:8082/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "order.*.dispatcher.status", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@172.16.168.183:35672/%2Fzkf", "dest-exchange": "ex_pos"}'
+    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@$downstream_ip:$downstream_port/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "order.*.dispatcher.status", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@$upstream_ip:$upstream_port/%2Fzkf", "dest-exchange": "ex_pos"}'
 
  rabbitmqctl set_parameter shovel to_pos_order_dot_star \
-    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@172.16.168.183:8082/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "order.*", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@172.16.168.183:35672/%2Fzkf", "dest-exchange": "ex_pos"}'
+    '{"src-protocol": "amqp091", "src-uri": "amqp://ymeng:111111@$downstream_ip:$downstream_port/%2Fzkf", "src-exchange": "ex_pos", "src-exchange-key": "order.*", "dest-protocol": "amqp091", "dest-uri": "amqp://ymeng:111111@$upstream_ip:$upstream_port/%2Fzkf", "dest-exchange": "ex_pos"}'
 
     
